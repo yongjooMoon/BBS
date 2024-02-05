@@ -1,14 +1,17 @@
 # Starter pipeline
-- task: AzureWebApp@1
-  inputs:
-    appType: 'webApp'
-    appName: 'test'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    deploymentMethod: 'auto'
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 trigger:
 - master
 
